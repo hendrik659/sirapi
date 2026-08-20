@@ -16,6 +16,10 @@ use App\Http\Controllers\InitialAdminRegistrationController;
 use App\Http\Middleware\EnsureInitialAdminRegistrationAvailable;
 use Illuminate\Support\Facades\DB;
 
+
+Route::get('/health', function () {
+    return 'SIRAPI OK';
+});
 Route::get('/test-db', function () {
     return DB::connection()->getDatabaseName();
 });
