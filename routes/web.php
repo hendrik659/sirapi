@@ -12,6 +12,25 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InitialAdminRegistrationController;
+use App\Http\Middleware\EnsureInitialAdminRegistrationAvailable;
+
+Route::middleware([
+    'guest',
+    'throttle:5,1',
+    EnsureInitialAdminRegistrationAvailable::class,
+])->group(function () {
+    Route::get(
+        '/setup/register-admin',
+        [InitialAdminRegistrationController::class, 'create']
+    )->name('initial-admin-register.create');
+
+    Route::post(
+        '/setup/register-admin',
+        [InitialAdminRegistrationController::class, 'store']
+    )->name('initial-admin-register.store');
+});
+
 
 Route::get('/', function () {
     return Auth::check()
