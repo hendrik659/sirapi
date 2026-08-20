@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InitialAdminRegistrationController;
 use App\Http\Middleware\EnsureInitialAdminRegistrationAvailable;
+use Illuminate\Support\Facades\DB;
+
+Route::get('/test-db', function () {
+    return DB::connection()->getDatabaseName();
+});
 
 Route::middleware([
     'guest',
